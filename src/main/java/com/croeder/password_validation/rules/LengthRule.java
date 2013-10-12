@@ -8,18 +8,24 @@ package com.croeder.password_validator.rules;
  */
 public class LengthRule implements Rule {
 
+	private final int maxMaximumLength=100;
+
 	private int minimumLength;
-	private final int maximumLength=100;
+	private int maximumLength;
 
 	/**
  	 * @param minimumLength the minimum required length to use
 	 *
 	 */ 
-	public LengthRule(int minimumLength) {
-		if (minimumLength <= 0 || minimumLength > maximumLength) {
-			throw new IllegalArgumentException("illegal length:" + minimumLength);
+	public LengthRule(int minimumLength, int maximumLength) {
+		if (   minimumLength <= 0 
+			|| minimumLength > maximumLength 
+			|| maximumLength > maxMaximumLength	) {
+			throw new IllegalArgumentException("illegal lengths: min:" 
+				+ minimumLength + " max:" + maximumLength);
 		}
 		this.minimumLength = minimumLength;
+		this.maximumLength = maximumLength;
 	}
 
 	/**
@@ -45,7 +51,7 @@ public class LengthRule implements Rule {
     public String getCritique(String password) {
         if (password.length() < minimumLength) {
             return "Make your password longer by adding at least "
-				+ (minimumLength - password.length()) + "characters. ";
+				+ (minimumLength - password.length()) + " characters. ";
         }
 		else if (password.length() > maximumLength) {
             return "Make your password shorter by removing at least "
