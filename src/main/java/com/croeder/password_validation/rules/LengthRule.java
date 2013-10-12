@@ -45,21 +45,5 @@ public class LengthRule implements Rule {
 			+ " and shorter than " + maximumLength;
     }
 
-	/**
-	 * returns a string to guide the user in correction of an unacceptable password
- 	 */
-    public String getCritique(String password) {
-        if (password.length() < minimumLength) {
-            return "Make your password longer by adding at least "
-				+ (minimumLength - password.length()) + " characters. ";
-        }
-		else if (password.length() > maximumLength) {
-            return "Make your password shorter by removing at least "
-				+  (password.length() - maximumLength) + "characters. ";
-		}
-        else {
-            return "Your password has enough characters.";
-        }
-    }
 }
 

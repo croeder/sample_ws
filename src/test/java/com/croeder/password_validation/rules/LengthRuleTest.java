@@ -58,14 +58,6 @@ public class LengthRuleTest {
 			r.getGuidelines());
 	}
 	
-	@Test
-	public void testGetCritique() {
-		Rule r = new LengthRule(5, 12);
-		assertEquals("failed to critique properly", 
-			"Make your password longer by adding at least 5 characters. ", 
-			r.getCritique(""));
-	}
-
 }
 
 
