@@ -1,4 +1,4 @@
-package com.croeder.password_validator.rules;
+package com.croeder.password_validation.rules;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;

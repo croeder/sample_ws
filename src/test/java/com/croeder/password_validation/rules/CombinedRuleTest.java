@@ -1,4 +1,4 @@
-package com.croeder.password_validator.rules;
+package com.croeder.password_validation.rules;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
