@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 
-public interface Validator {
+public interface PasswordValidator {
 
 	Pair<Boolean, String>  validate(String password);
 

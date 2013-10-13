@@ -1,12 +1,25 @@
 package com.croeder.password_validation.web_service;
 
+import javax.inject.Inject;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+
+import com.croeder.password_validation.rules.PasswordValidator;
 
 @Path("password")
 public class PasswordResource {
+
+	private PasswordValidator validator;
+
+	@Inject
+	public PasswordResource(PasswordValidator validator) {
+		this.validator = validator;
+	}
+
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -15,8 +28,15 @@ public class PasswordResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
+    @Path("/{password:\\w+}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
-        return "Got myresource!";
+    public String getIt(@PathParam("password") String password) {
+		if (validator.validate(password).getLeft()) {
+        	return "true";
+		} 
+		else {
+        	return "false";
+		}
+			
     }
 }

@@ -7,20 +7,37 @@ import org.glassfish.jersey.server.ResourceConfig;
 import java.io.IOException;
 import java.net.URI;
 
+
+import com.croeder.password_validation.rules.PasswordValidator;
+import com.croeder.password_validation.rules.TrueValidator;
+import com.croeder.password_validation.rules.AppValidator;
+
+
+
 /**
  * stand-alone grizzly http server with web service
  */
-public class Main {
+public class Main extends GuiceServletContextListener{
     public static final String BASE_URI = "http://localhost:8080/password_app";
+
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
      * @return Grizzly HTTP server.
      */
     public static HttpServer startServer() {
+
+		Injector injector = Guice.createInjector(new ServletModule() {
+			@Override
+			protected void configureServlets() {
+				bind( new TypeLiteral<PasswordValidator>() {}).to(TrueValidator.class);
+			}
+		});
+
 		final ResourceConfig config = new ResourceConfig(PasswordResource.class);
+		IoCComponentProviderFactory ioc = new GuiceComponentProviderFactory(config, injector);
         config.packages("com.croeder.password_validation.web_service");
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), config);
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), config, ioc);
     }
 
     /**

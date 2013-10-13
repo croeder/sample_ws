@@ -42,7 +42,8 @@ public class PasswordResourceTest {
      */
     @Test
     public void testGetIt() {
-        String responseMsg = target.path("password").request().get(String.class);
-        assertEquals("Got myresource!", responseMsg);
+        //String responseMsg = target.path("password").request().get(String.class);
+        String responseMsg = target.path("password/aA1xx").request().get(String.class);
+        assertEquals("Got password:aA1xx", responseMsg);
     }
 }
