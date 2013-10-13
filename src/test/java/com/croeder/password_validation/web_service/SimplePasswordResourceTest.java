@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.apache.log4j.Logger;
 import org.apache.log4j.BasicConfigurator;
 
-public class PasswordResourceTest {
+public class SimplePasswordResourceTest {
 
     private HttpServer server;
     private WebTarget target;
@@ -50,8 +50,7 @@ public class PasswordResourceTest {
      */
     @Test
     public void testGetIt() {
-        //String responseMsg = target.path("password").request().get(String.class);
-        String responseMsg = target.path("password/aA1xx").request().get(String.class);
+        String responseMsg = target.path("simplepassword/aA1xx").request().get(String.class);
         assertEquals("true", responseMsg);
     }
 }

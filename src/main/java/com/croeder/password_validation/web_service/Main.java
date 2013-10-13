@@ -7,6 +7,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 import java.io.IOException;
 import java.net.URI;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
 
 import com.croeder.password_validation.rules.PasswordValidator;
 import com.croeder.password_validation.rules.TrueValidator;
@@ -17,27 +19,20 @@ import com.croeder.password_validation.rules.AppValidator;
 /**
  * stand-alone grizzly http server with web service
  */
-public class Main extends GuiceServletContextListener{
+public class Main  {
     public static final String BASE_URI = "http://localhost:8080/password_app";
-
+	private static final Logger logger=Logger.getLogger(Main.class);
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
      * @return Grizzly HTTP server.
      */
     public static HttpServer startServer() {
-
-		Injector injector = Guice.createInjector(new ServletModule() {
-			@Override
-			protected void configureServlets() {
-				bind( new TypeLiteral<PasswordValidator>() {}).to(TrueValidator.class);
-			}
-		});
-
-		final ResourceConfig config = new ResourceConfig(PasswordResource.class);
-		IoCComponentProviderFactory ioc = new GuiceComponentProviderFactory(config, injector);
+		logger.debug("Main startServer");
+		//final ResourceConfig config = new ResourceConfig(PasswordResource.class);
+		final ResourceConfig config = new PasswordApplication(PasswordResource.class);
         config.packages("com.croeder.password_validation.web_service");
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), config, ioc);
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), config);
     }
 
     /**
@@ -46,6 +41,9 @@ public class Main extends GuiceServletContextListener{
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+		BasicConfigurator.configure();
+		
+		logger.debug("Main main()");
 	
         final HttpServer server = startServer();
         System.out.println(String.format("Jersey app started with WADL available at "

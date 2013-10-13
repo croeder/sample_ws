@@ -33,6 +33,22 @@
             <version>4.9</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+        </dependency>
+		
 		<dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -54,12 +70,20 @@
             <artifactId>jersey-client</artifactId>
         </dependency>
 
+		<dependency>
+            <groupId>org.glassfish.hk2</groupId>
+            <!--<artifactId>hk2</artifactId>-->
+            <artifactId>hk2-locator</artifactId>
+			<version>2.2.0-b20</version>
+        </dependency>
+
+<!--
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
 			<version>${jersey.version}</version>
         </dependency>
-
+-->
   		<dependency>
     		<groupId>javax</groupId>
     		<artifactId>javaee-web-api</artifactId>
