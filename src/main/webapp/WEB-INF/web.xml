@@ -1,0 +1,11 @@
+<web-app>
+    <servlet>
+        <servlet-name>com.croeder.password_validation</servlet-name>
+    </servlet>
+    ...
+    <servlet-mapping>
+        <servlet-name>com.croeder.password_validation</servlet-name>
+        <url-pattern>/resources</url-pattern>
+    </servlet-mapping>
+    ...
+</web-app>
