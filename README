@@ -1,9 +1,21 @@
 password_validation
 
-This is project implements a simple password validation service. It doesn't have anything to do with authenticating users.
+This is project implements a simple password validation service. It doesn't have anything to do with authenticating users. Instructions at the bottom.  Built with maven. Tested with jUnit. mvn exec:java runs a stand-alone grizzly server on localhost:8080. curlget.sh script hits it with curl. p.html is a form for use in a browser.
 
 croeder, Oct, 2013
 
+TODO:
+- deployment jar/war, url
+- source jar
+-
+
+Comments:
+- It could be more interesting with a list/array of injections rather than an encapsulating class for a number of rules.
+- I'd be interested to hear opinions about using the 412 for a failing password.
+-
+
+ 
+===================================================
 
 Programming Problem
 

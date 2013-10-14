@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script language="javascript">
+    var xmlhttp;
+    function init() {
+       xmlhttp = new XMLHttpRequest();
+    }
+    function getdetails() {
+        var empname =  document.getElementById("empname");
+        var url = "http://localhost:8080/password_app/password/validate?password=" + empname.value ;
+        xmlhttp.open('GET',url,true);
+        xmlhttp.send(null);
+        xmlhttp.onreadystatechange = function() {
+
+               if (xmlhttp.readyState == 4) {
+                 if ( xmlhttp.status == 200) {
+                  	alert("password accepted");     
+                 }
+				 else if (xmlhttp.status == 412) {
+                       alert("Error: password doesn't follow the rules.\"" + empname.value + "\"");
+				 }
+                 else {
+                       alert("Error ->" + xmlhttp.responseText);
+				 }
+              }
+        };
+    }
+  </script>
+
+  </head>
+  <body  onload="init()">
+   	<h1>Call Employee Service </h1>
+    Enter Name : 	
+		<input type="text" id="empname" size="12"/>
+		<input type="button" value="check" onclick="getdetails()"/> 
+  </body>
+
+</html>
