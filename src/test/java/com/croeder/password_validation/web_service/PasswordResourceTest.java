@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 
@@ -13,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.BasicConfigurator;
 
 public class PasswordResourceTest {
 
@@ -23,12 +23,10 @@ public class PasswordResourceTest {
 
     @Before
     public void setUp() throws Exception {
-		BasicConfigurator.configure();
 		
         // start the server
-		logger.debug("xxxxx passwordResourceTest");
+		logger.debug("starting server");
         server = Main.startServer();
-        // create the client
         Client c = ClientBuilder.newClient();
 
         // uncomment the following line if you want to enable
@@ -42,16 +40,22 @@ public class PasswordResourceTest {
 
     @After
     public void tearDown() throws Exception {
+		logger.debug("stopping server");
         server.stop();
     }
 
-    /**
-     * Test to see that the correct message is sent in the response.
-     */
-    @Test
-    public void testGetIt() {
-        //String responseMsg = target.path("password").request().get(String.class);
-        String responseMsg = target.path("password/aA1xx").request().get(String.class);
-        assertEquals("true", responseMsg);
+	@Test
+    public void testGetIt_positive() {
+        Response response = target.path("password/validate").queryParam("password", "aA1xx").request().get();
+        logger.debug("RESPONSE: (positive?) " + response.toString());
+        assertEquals(200, response.getStatus());
     }
+
+    @Test
+    public void testGetIt_negative() {
+        Response response = target.path("password/validate").queryParam("password", "bad").request().get();
+        logger.debug("RESPONSE: (negative?)" + response.toString());
+        assertEquals(412, response.getStatus());
+    }
+
 }
