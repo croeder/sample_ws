@@ -12,7 +12,7 @@ TODO:
 Comments:
 - It could be more interesting with a list/array of injections rather than an encapsulating class for a number of rules.
 - I'd be interested to hear opinions about using the 412 for a failing password.
--
+- grizzly2 and better luck with hk2 was a bit of a time hole, but simple in the end.
 
  
 ===================================================
