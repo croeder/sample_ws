@@ -1,0 +1,7 @@
+.        The core requirements were not met
+
+·        Dependency Injection was not used for rules; rule instances were constructed explicitly with “new” instead of injected
+
+·        Production code was not directly tested (CombinedRuleTest copied the RegEx definitions instead of testing AppValidator)
+
+·        There was insufficient testing for the code provided
