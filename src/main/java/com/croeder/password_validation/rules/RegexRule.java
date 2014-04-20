@@ -1,3 +1,6 @@
+/**
+ * Copyright 2013 Chris Roeder
+ */
 package com.croeder.password_validation.rules;
 
 import java.util.regex.Pattern;

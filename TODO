@@ -5,3 +5,5 @@
 ·        Production code was not directly tested (CombinedRuleTest copied the RegEx definitions instead of testing AppValidator)
 
 ·        There was insufficient testing for the code provided
+
+If I had more time to spend, I might switch from binding a single class for the rules used, AppValidator, to a list of rules directly. This would elevate the rules choice a step closer to deployment. If HK2 had a file that lists the bindings (it may) instead of a java  class, you might be able to get to a deployment-space rule selection.

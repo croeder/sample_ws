@@ -4,6 +4,9 @@
 package com.croeder.password_validation.rules;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import org.junit.Before;
 import org.junit.Test;
 import java.util.regex.PatternSyntaxException;
 
@@ -16,46 +19,36 @@ import java.util.regex.PatternSyntaxException;
  * <li>between 5 and 12 characters</li>
  * 
  */
-public class CombinedRuleTest {
 
-	private void runTest(String test, boolean expected) {
-		Rule word  = new RegexRule("\\w+", "");
-		Rule digit = new RegexRule(".*\\d.*", "");
-		Rule upper = new RegexRule(".*[A-Z].*", "");
-		Rule lower = new RegexRule(".*[a-z].*", "");
-		Rule length = new LengthRule(5,12);
 
-		assertEquals("failed to validate()", expected, 
-			digit.validate(test) 
-			&& lower.validate(test) 
-			&& upper.validate(test)
-			&& word.validate(test)
-			&& length.validate(test));
-	}
+public class AppValidatorTest {
+
+	AppValidator av = new AppValidator();
 
 	@Test public void test_good_short() {
-		runTest("xAa1x", true);
+		assertTrue(av.validate("xAa1x").getLeft());
 	}
 	@Test public void test_good_long() {
-		runTest("xAa1xxAa1xyz", true);
+		assertTrue(av.validate("xAa1xxAa1xyz").getLeft());
 	}
 	@Test public void test_no_upper() {
-		runTest("xaa1x", false);
+		assertFalse(av.validate("xaa1x").getLeft());
 	}
 	@Test public void test_no_digit() {
-		runTest("xAaax", false);
+		assertFalse(av.validate("xAaax").getLeft());
 	}
 	@Test public void test_no_lower() {
-		runTest("XA1AAX", false);
+		assertFalse(av.validate("XA1AAX").getLeft());
 	}
 	@Test public void test_too_short() {
-		runTest("x1A", false);
+		assertFalse(av.validate("x1A").getLeft());
 	}
 	@Test public void test_too_long() {
-		runTest("x1Axxxxxxxxxxxx", false);
+		assertFalse(av.validate("x1Axxxxxxxxxxxx").getLeft());
 	}
 
 
 }
+
 
 

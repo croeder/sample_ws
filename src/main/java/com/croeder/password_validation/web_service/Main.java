@@ -1,3 +1,6 @@
+/**
+ * Copyright 2013 Chris Roeder
+ */
 package com.croeder.password_validation.web_service;
 
 import org.glassfish.grizzly.http.server.HttpServer;
